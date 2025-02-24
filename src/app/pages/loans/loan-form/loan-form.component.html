@@ -1,1 +1,22 @@
-<p>loan-form works!</p>
+<div class="loan-form">
+  <h2>{{ isEdit ? 'Edit Loan' : 'Add Loan' }}</h2>
+
+  <form (ngSubmit)="submitLoan()" #loanForm="ngForm">
+    <label>Borrower</label>
+    <input type="text" [(ngModel)]="loan.borrower" name="borrower" required />
+    <div *ngIf="loanForm.submitted && !loan.borrower" class="error">Borrower name is required.</div>
+
+    <label>Amount</label>
+    <input type="number" [(ngModel)]="loan.amount" name="amount" required min="1000" />
+    <div *ngIf="loanForm.submitted && (!loan.amount || loan.amount < 1000)" class="error">Minimum loan amount is 1000.</div>
+
+    <label>Status</label>
+    <select [(ngModel)]="loan.status" name="status" required>
+      <option value="Pending">Pending</option>
+      <option value="Paid">Paid</option>
+      <option value="Defaulted">Defaulted</option>
+    </select>
+
+    <button type="submit" class="btn btn-success">{{ isEdit ? 'Update' : 'Add' }} Loan</button>
+  </form>
+</div>

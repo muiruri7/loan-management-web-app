@@ -8,14 +8,18 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-  name = '';
   email = '';
   password = '';
+  errorMessage = '';
 
   constructor(private authService: AuthService, private router: Router) {}
 
   onRegister() {
-    alert('Registration successful! Please log in.');
-    this.router.navigate(['/login']);
+    if (this.authService.register(this.email, this.password)) {
+      alert('Registration successful! Please log in.');
+      this.router.navigate(['/login']);
+    } else {
+      this.errorMessage = 'Email already exists.';
+    }
   }
 }
