@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -8,10 +8,18 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent {
-  constructor(private authService: AuthService, private router: Router) {}
+  user: string = '';
+  role: string = '';
+
+  constructor(private authService: AuthService, private router: Router) {
+    this.user = this.authService.getUser();
+    this.role = this.authService.getUserRole();
+  }
 
   logout() {
-    this.authService.logout();
-    this.router.navigate(['/login']);
+    if (confirm('Are you sure you want to log out?')) {
+      this.authService.logout();
+      this.router.navigate(['/login']);
+    }
   }
 }

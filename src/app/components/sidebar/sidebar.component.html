@@ -2,8 +2,11 @@
   <h2>Loan Management</h2>
   <ul>
     <li><a routerLink="/dashboard">📊 Dashboard</a></li>
-    <li><a routerLink="/customers">👥 Customers</a></li>
+    <li *ngIf="role === 'admin'"><a routerLink="/customers">👥 Customers</a></li>
     <li><a routerLink="/loans">💰 Loans</a></li>
   </ul>
-  <button (click)="logout()">🚪 Logout</button>
+  <div class="sidebar-footer">
+    <span *ngIf="user">Welcome, {{ user }} ({{ role }})</span>
+    <button (click)="logout()">🚪 Logout</button>
+  </div>
 </div>

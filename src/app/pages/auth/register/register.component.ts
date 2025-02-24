@@ -14,6 +14,12 @@ export class RegisterComponent {
 
   constructor(private authService: AuthService, private router: Router) {}
 
+  ngOnInit() {
+    if (this.authService.isUserAuthenticated()) {
+      this.router.navigate(['/dashboard']); // Redirect if already logged in
+    }
+  }
+
   onRegister() {
     if (this.authService.register(this.email, this.password)) {
       alert('Registration successful! Please log in.');

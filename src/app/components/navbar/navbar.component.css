@@ -8,3 +8,26 @@
   align-items: center;
   padding: 0 20px;
 }
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.user-info span {
+  font-weight: bold;
+}
+
+.btn-logout {
+  background: #e74c3c;
+  border: none;
+  color: white;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.btn-logout:hover {
+  background: #c0392b;
+}

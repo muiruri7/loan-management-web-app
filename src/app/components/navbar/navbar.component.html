@@ -1,4 +1,7 @@
 <nav class="navbar">
   <h1>Loan Management System</h1>
-  <button (click)="logout()">🚪 Logout</button>
+  <div class="user-info">
+    <span *ngIf="user">Welcome, {{ user }}</span>
+    <button (click)="logout()" class="btn-logout">🚪 Logout</button>
+  </div>
 </nav>

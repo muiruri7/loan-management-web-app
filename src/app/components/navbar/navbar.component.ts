@@ -8,10 +8,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
-  constructor(private authService: AuthService, private router: Router) {}
+  user: string = '';
+
+  constructor(private authService: AuthService, private router: Router) {
+    this.user = this.authService.getUser();
+  }
 
   logout() {
-    this.authService.logout();
-    this.router.navigate(['/login']);
+    if (confirm('Are you sure you want to log out?')) {
+      this.authService.logout();
+      this.router.navigate(['/login']);
+    }
   }
 }
