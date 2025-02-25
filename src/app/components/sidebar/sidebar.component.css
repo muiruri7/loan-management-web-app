@@ -80,3 +80,24 @@
     font-size: 14px;
   }
 }
+
+/* === Adjust Layout When Sidebar is Collapsed === */
+.dashboard-content,
+.form-container,
+.loan-form-container {
+  transition: margin-left 0.3s ease-in-out;
+}
+
+/* When Sidebar is Expanded */
+.sidebar:not(.collapsed) ~ .dashboard-content,
+.sidebar:not(.collapsed) ~ .form-container,
+.sidebar:not(.collapsed) ~ .loan-form-container {
+  margin-left: 260px;
+}
+
+/* When Sidebar is Collapsed */
+.sidebar.collapsed ~ .dashboard-content,
+.sidebar.collapsed ~ .form-container,
+.sidebar.collapsed ~ .loan-form-container {
+  margin-left: 80px;
+}

@@ -14,7 +14,7 @@ export class SidebarComponent {
     { label: '🏠 Dashboard', link: '/dashboard' },
     { label: '👥 Customers', link: '/customers' },
     { label: '💰 Loans', link: '/loans' },
-    { label: '📊 Charts', link: '/mycharts' }
+    // { label: '📊 Charts', link: '/mycharts' }
   ];
   
 
