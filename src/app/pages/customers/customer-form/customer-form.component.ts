@@ -9,8 +9,7 @@ import { CustomerService } from '../../../services/customer.service';
 })
 export class CustomerFormComponent implements OnInit {
   isEdit: boolean = false;
-  customer = { id: '', name: '', email: '', phone: '' };
-  errorMessage: string = '';
+  customer: any = { name: '', email: '', phone: '', address: '', dob: '', nationalId: '', gender: '' };  errorMessage: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -29,16 +28,16 @@ export class CustomerFormComponent implements OnInit {
     }
   }
 
-  submitCustomer() {
+  submitCustomer(): void {
+    if (!this.customer.name || !this.customer.email || !this.customer.phone) return;
+
     if (this.isEdit) {
-      this.customerService.updateCustomer(this.customer.id, this.customer).subscribe({
-        next: () => this.router.navigate(['/customers']),
-        error: err => this.errorMessage = err.message
+      this.customerService.updateCustomer(this.customer.id, this.customer).subscribe(() => {
+        this.router.navigate(['/customers']);
       });
     } else {
-      this.customerService.addCustomer(this.customer).subscribe({
-        next: () => this.router.navigate(['/customers']),
-        error: err => this.errorMessage = err.message
+      this.customerService.addCustomer(this.customer).subscribe(() => {
+        this.router.navigate(['/customers']);
       });
     }
   }

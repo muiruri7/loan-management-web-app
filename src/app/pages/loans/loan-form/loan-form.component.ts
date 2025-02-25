@@ -9,8 +9,16 @@ import { LoanService } from '../../../services/loan.service';
 })
 export class LoanFormComponent implements OnInit {
   isEdit: boolean = false;
-  loan = { id: '', borrower: '', amount: 0, status: 'Pending' };
-  errorMessage: string = '';
+  loan: any = {
+    borrower: '',
+    amount: '',
+    type: '',
+    term: '',
+    interestRate: '',
+    status: 'Pending'
+  }; errorMessage: string = '';
+  customerService: any;
+  customers: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -29,16 +37,23 @@ export class LoanFormComponent implements OnInit {
     }
   }
 
-  submitLoan() {
+  loadCustomers(): void {
+    this.customerService.getCustomers().subscribe({
+      next: (data: any) => (this.customers = data),
+      error: () => console.error('Failed to load customers')
+    });
+  }
+
+  submitLoan(): void {
+    if (!this.loan.borrower || !this.loan.amount || !this.loan.type) return;
+
     if (this.isEdit) {
-      this.loanService.updateLoan(this.loan.id, this.loan).subscribe({
-        next: () => this.router.navigate(['/loans']),
-        error: err => this.errorMessage = err.message
+      this.loanService.updateLoan(this.loan.id, this.loan).subscribe(() => {
+        this.router.navigate(['/loans']);
       });
     } else {
-      this.loanService.addLoan(this.loan).subscribe({
-        next: () => this.router.navigate(['/loans']),
-        error: err => this.errorMessage = err.message
+      this.loanService.addLoan(this.loan).subscribe(() => {
+        this.router.navigate(['/loans']);
       });
     }
   }
