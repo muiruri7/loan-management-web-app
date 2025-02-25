@@ -1,21 +1,36 @@
 <div class="customer-list">
   <h2>Customers</h2>
-  
+
+  <div class="search-container">
+    <input
+      type="text"
+      [(ngModel)]="searchTerm"
+      (input)="filterCustomers()"
+      placeholder="🔍 Search customers..."
+    />
+  </div>
+
   <button class="btn-add" routerLink="/customers/add">➕ Add Customer</button>
-  
+
   <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
-  
+
   <table class="customer-table">
     <thead>
       <tr>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Phone</th>
+        <th (click)="sortCustomers('name')">
+          Name {{ sortColumn === 'name' ? (sortAscending ? '🔼' : '🔽') : '' }}
+        </th>
+        <th (click)="sortCustomers('email')">
+          Email {{ sortColumn === 'email' ? (sortAscending ? '🔼' : '🔽') : '' }}
+        </th>
+        <th (click)="sortCustomers('phone')">
+          Phone {{ sortColumn === 'phone' ? (sortAscending ? '🔼' : '🔽') : '' }}
+        </th>
         <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let customer of customers">
+      <tr *ngFor="let customer of filteredCustomers">
         <td>{{ customer.name }}</td>
         <td>{{ customer.email }}</td>
         <td>{{ customer.phone }}</td>

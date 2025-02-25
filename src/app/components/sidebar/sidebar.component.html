@@ -1,12 +1,9 @@
-<div class="sidebar">
-  <h2>Loan Management</h2>
-  <ul>
-    <li><a routerLink="/dashboard">📊 Dashboard</a></li>
-    <li><a routerLink="/customers">👥 Customers</a></li>
-    <li><a routerLink="/loans">💰 Loans</a></li>
+<aside class="sidebar" [class.collapsed]=""isCollapsed>
+    <button class="toggle-btn" (click)="toggleSidebar()">☰</button>
+  <h2 class="logo">LOAN MANAGER</h2>
+  <ul class="menu">
+    <li *ngFor="let item of menuItems">
+      <a routerLink="{{ item.link }}" routerLinkActive="active">{{ item.label }}</a>
+    </li>
   </ul>
-  <div class="sidebar-footer">
-    <span *ngIf="user">Welcome, {{ user }} </span>
-    <button (click)="logout()">🚪 Logout</button>
-  </div>
-</div>
+</aside>

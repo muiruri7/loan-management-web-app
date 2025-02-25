@@ -62,3 +62,17 @@ h2 {
   text-align: center;
   margin-top: 10px;
 }
+
+.search-container {
+  margin: 10px 0;
+  text-align: center;
+}
+
+.search-container input {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}

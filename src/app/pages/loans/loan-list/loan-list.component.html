@@ -1,21 +1,36 @@
 <div class="loan-list">
   <h2>Loans</h2>
-  
+
+  <div class="search-container">
+    <input
+      type="text"
+      [(ngModel)]="searchTerm"
+      (input)="filterLoans()"
+      placeholder="🔍 Search loans..."
+    />
+  </div>
+
   <button class="btn-add" routerLink="/loans/add">➕ Add Loan</button>
-  
+
   <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
-  
+
   <table class="loan-table">
     <thead>
       <tr>
-        <th>Borrower</th>
-        <th>Amount</th>
-        <th>Status</th>
+        <th (click)="sortLoans('borrower')">
+          Borrower {{ sortColumn === 'borrower' ? (sortAscending ? '🔼' : '🔽') : '' }}
+        </th>
+        <th (click)="sortLoans('amount')">
+          Amount {{ sortColumn === 'amount' ? (sortAscending ? '🔼' : '🔽') : '' }}
+        </th>
+        <th (click)="sortLoans('status')">
+          Status {{ sortColumn === 'status' ? (sortAscending ? '🔼' : '🔽') : '' }}
+        </th>
         <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let loan of loans">
+      <tr *ngFor="let loan of filteredLoans">
         <td>{{ loan.borrower }}</td>
         <td>{{ loan.amount | currency }}</td>
         <td>{{ loan.status }}</td>

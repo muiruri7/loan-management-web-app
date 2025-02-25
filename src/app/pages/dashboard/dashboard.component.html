@@ -1,1 +1,35 @@
-<p>dashboard works!</p>
+<div class="dashboard-container">
+  <main class="dashboard-content">
+    <!-- Top Navbar -->
+    <header class="top-nav">
+      <input type="text" placeholder="🔍 Search..." class="search-bar">
+      <div class="user-profile">
+        <img src="assets/profile.jpg" alt="User">
+      </div>
+    </header>
+
+    <!-- Dashboard Overview Cards -->
+    <section class="dashboard-cards">
+      <div class="card">
+        <h3>Total Loans</h3>
+        <p>{{ analysis.totalLoans }}</p>
+      </div>
+      <div class="card">
+        <h3>Approved Loans</h3>
+        <p>{{ analysis.approvedLoans }}</p> 
+      </div>
+      <div class="card">
+        <h3>Pending Loans</h3>
+        <p>{{ analysis.pendingLoans }}</p> 
+      </div>
+    </section>
+
+    <!-- Graphs and Analytics -->
+    <section class="analytics-section">
+      <div class="chart-container">
+        <h3>Loan Distribution</h3>
+        <app-mycharts></app-mycharts> <!-- ✅ Renders Pie & Bar Charts -->
+      </div>
+    </section>
+  </main>
+</div>

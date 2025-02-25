@@ -1,57 +1,82 @@
+/* === Sidebar Styling === */
 .sidebar {
   width: 250px;
-  height: 100vh;
   background: #2c3e50;
   color: white;
   padding: 20px;
   position: fixed;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  height: 100vh;
+  transition: width 0.3s ease-in-out;
 }
 
-.sidebar h2 {
+/* === Collapsed Sidebar === */
+.sidebar.collapsed {
+  width: 80px;
+  padding: 10px;
+}
+
+.sidebar.collapsed .logo {
+  display: none;
+}
+
+.sidebar.collapsed .menu li a {
   text-align: center;
-  font-size: 20px;
+  font-size: 18px;
 }
 
-.sidebar ul {
-  list-style-type: none;
+/* === Sidebar Menu === */
+.sidebar .menu {
+  list-style: none;
   padding: 0;
 }
 
-.sidebar ul li {
-  padding: 10px;
+.sidebar .menu li {
+  padding: 10px 15px;
+  transition: all 0.3s ease-in-out;
 }
 
-.sidebar ul li a {
+.sidebar .menu li a {
   color: white;
   text-decoration: none;
   display: block;
+  padding: 10px;
+  border-radius: 5px;
+  transition: background 0.3s, transform 0.2s;
 }
 
-.sidebar ul li a:hover {
-  background: #34495e;
-  padding: 10px;
+.sidebar .menu li a:hover {
+  background: #1abc9c;
+  transform: translateX(5px);
 }
 
-.sidebar-footer {
-  text-align: center;
-  padding: 10px;
-  background: #1f2d3d;
-  border-radius: 10px;
+.sidebar .menu li a.active {
+  background: #1abc9c;
+  font-weight: bold;
 }
 
-button {
-  width: 100%;
-  padding: 10px;
-  background: #e74c3c;
+/* === Toggle Button === */
+.toggle-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: transparent;
   border: none;
   color: white;
+  font-size: 24px;
   cursor: pointer;
-  border-radius: 5px;
 }
 
-button:hover {
-  background: #c0392b;
+/* === Responsive Sidebar === */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 200px;
+  }
+
+  .sidebar.collapsed {
+    width: 60px;
+  }
+
+  .sidebar .menu li a {
+    font-size: 14px;
+  }
 }

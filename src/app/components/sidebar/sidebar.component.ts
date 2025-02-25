@@ -8,12 +8,23 @@ import { Router } from '@angular/router';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent {
-  user: string = '';
+  isCollapsed = false;
+
+  menuItems = [
+    { label: '🏠 Dashboard', link: '/dashboard' },
+    { label: '👥 Customers', link: '/customers' },
+    { label: '💰 Loans', link: '/loans' },
+    { label: '📊 Charts', link: '/mycharts' }
+  ];
+  
 
   constructor(private authService: AuthService, private router: Router) {
-    this.user = this.authService.getUser();
   }
 
+  toggleSidebar(): void {
+    this.isCollapsed = !this.isCollapsed;
+  }
+  
   logout() {
     if (confirm('Are you sure you want to log out?')) {
       this.authService.logout();
