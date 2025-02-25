@@ -1,1 +1,29 @@
-<p>loan-list works!</p>
+<div class="loan-list">
+  <h2>Loans</h2>
+  
+  <button class="btn-add" routerLink="/loans/add">➕ Add Loan</button>
+  
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+  
+  <table class="loan-table">
+    <thead>
+      <tr>
+        <th>Borrower</th>
+        <th>Amount</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let loan of loans">
+        <td>{{ loan.borrower }}</td>
+        <td>{{ loan.amount | currency }}</td>
+        <td>{{ loan.status }}</td>
+        <td>
+          <button class="btn-edit" (click)="editLoan(loan.id)">✏️ Edit</button>
+          <button class="btn-delete" (click)="deleteLoan(loan.id)">🗑 Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

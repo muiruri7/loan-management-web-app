@@ -19,6 +19,7 @@ import { AuthService } from './services/auth.service';
 import { CustomerService } from './services/customer.service';
 import { LoanService } from './services/loan.service';
 import { AuthGuard } from './guards/auth.guard';
+import { MyChartsComponent } from './components/my-charts/my-charts.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { AuthGuard } from './guards/auth.guard';
     CustomerFormComponent,
     LoanListComponent,
     LoanFormComponent,
-    DashboardComponent
+    DashboardComponent,
+    MyChartsComponent
   ],
   imports: [
     BrowserModule,

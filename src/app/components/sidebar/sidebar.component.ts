@@ -9,11 +9,9 @@ import { Router } from '@angular/router';
 })
 export class SidebarComponent {
   user: string = '';
-  role: string = '';
 
   constructor(private authService: AuthService, private router: Router) {
     this.user = this.authService.getUser();
-    this.role = this.authService.getUserRole();
   }
 
   logout() {
