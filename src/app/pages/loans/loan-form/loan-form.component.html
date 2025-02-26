@@ -2,13 +2,13 @@
   <h2>{{ isEdit ? 'Edit Loan' : 'Add Loan' }}</h2>
 
   <form (ngSubmit)="submitLoan()" #loanForm="ngForm">
-    <label>Borrower</label>
+    <label>Loan Applicant</label>
     <select [(ngModel)]="loan.borrower" name="borrower" required>
-      <option *ngFor="let customer of customers" [value]="customer.id">{{ customer.name }}</option>
+      <option *ngFor="let customer of customers" [value]="customer.id">{{ customer.first_name }}, {{ customer.last_name }}</option>
     </select>
     <div *ngIf="loanForm.submitted && !loan.borrower" class="error">Borrower is required.</div>
 
-    <label>Amount</label>
+    <label>Principal Amount</label>
     <input type="number" [(ngModel)]="loan.amount" name="amount" required min="1000" />
     <div *ngIf="loanForm.submitted && (!loan.amount || loan.amount < 1000)" class="error">Minimum loan amount is 1000.</div>
 
@@ -20,9 +20,27 @@
       <option value="Auto">Auto</option>
     </select>
 
-    <label>Loan Term (Months)</label>
-    <input type="number" [(ngModel)]="loan.term" name="term" required min="1" />
-    <div *ngIf="loanForm.submitted && !loan.term" class="error">Loan term is required.</div>
+    <label>Loan Term</label>
+    <div class="loan-term">
+      <input type="number" [(ngModel)]="loan.termWeeks" name="termWeeks" placeholder="Weeks" min="0" />
+      <input type="number" [(ngModel)]="loan.termMonths" name="termMonths" placeholder="Months" min="0" />
+      <input type="number" [(ngModel)]="loan.termYears" name="termYears" placeholder="Years" min="0" />
+    </div>
+
+    <label>Repayment Frequency</label>
+    <select [(ngModel)]="loan.repaymentFrequency" name="repaymentFrequency" required>
+      <option value="Weekly">Weekly</option>
+      <option value="Bi-Weekly">Bi-Weekly</option>
+      <option value="Monthly">Monthly</option>
+      <option value="Quarterly">Quarterly</option>
+      <option value="Annually">Annually</option>
+    </select>
+
+    <label>Start Date</label>
+    <input type="date" [(ngModel)]="loan.startDate" name="startDate" required />
+
+    <label>End Date</label>
+    <input type="date" [(ngModel)]="loan.endDate" name="endDate" required />
 
     <label>Interest Rate (%)</label>
     <input type="number" [(ngModel)]="loan.interestRate" name="interestRate" required min="1" step="0.01" />
@@ -31,8 +49,10 @@
     <label>Status</label>
     <select [(ngModel)]="loan.status" name="status" required>
       <option value="Pending">Pending</option>
-      <option value="Approved">Approved</option>
+      <option value="Accepted">Accepted</option>
       <option value="Rejected">Rejected</option>
+      <option value="Disbursed">Disbursed</option>
+      <option value="Paid">Paid</option>
     </select>
 
     <button type="submit" class="btn btn-success">{{ isEdit ? 'Update' : 'Add' }} Loan</button>

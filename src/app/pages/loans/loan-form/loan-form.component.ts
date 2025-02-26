@@ -13,10 +13,16 @@ export class LoanFormComponent implements OnInit {
     borrower: '',
     amount: '',
     type: '',
-    term: '',
+    termWeeks: 0,
+    termMonths: 0,
+    termYears: 0,
+    repaymentFrequency: '',
+    startDate: '',
+    endDate: '',
     interestRate: '',
     status: 'Pending'
-  }; errorMessage: string = '';
+  };
+  errorMessage: string = '';
   customerService: any;
   customers: any;
 
@@ -47,6 +53,8 @@ export class LoanFormComponent implements OnInit {
   submitLoan(): void {
     if (!this.loan.borrower || !this.loan.amount || !this.loan.type) return;
 
+    this.loan.term = (this.loan.termWeeks * 7) + (this.loan.termMonths * 30) + (this.loan.termYears * 365);
+    
     if (this.isEdit) {
       this.loanService.updateLoan(this.loan.id, this.loan).subscribe(() => {
         this.router.navigate(['/loans']);

@@ -17,14 +17,29 @@
   <table class="customer-table">
     <thead>
       <tr>
-        <th (click)="sortCustomers('name')">
-          Name {{ sortColumn === 'name' ? (sortAscending ? '🔼' : '🔽') : '' }}
+        <th (click)="sortCustomers('first_name')">
+          First Name {{ sortColumn === 'first_name' ? (sortAscending ? '🔼' : '🔽') : '' }}
+        </th>
+        <th (click)="sortCustomers('last_name')">
+          Last Name {{ sortColumn === 'last_name' ? (sortAscending ? '🔼' : '🔽') : '' }}
         </th>
         <th (click)="sortCustomers('email')">
           Email {{ sortColumn === 'email' ? (sortAscending ? '🔼' : '🔽') : '' }}
         </th>
         <th (click)="sortCustomers('phone')">
           Phone {{ sortColumn === 'phone' ? (sortAscending ? '🔼' : '🔽') : '' }}
+        </th>
+        <th (click)="sortCustomers('address')">
+          Address {{ sortColumn === 'address' ? (sortAscending ? '🔼' : '🔽') : '' }}
+        </th>
+        <th (click)="sortCustomers('dob')">
+          Date of Birth {{ sortColumn === 'dob' ? (sortAscending ? '🔼' : '🔽') : '' }}
+        </th>
+        <th (click)="sortCustomers('nationalId')">
+          National ID {{ sortColumn === 'nationalId' ? (sortAscending ? '🔼' : '🔽') : '' }}
+        </th>
+        <th (click)="sortCustomers('gender')">
+          Gender {{ sortColumn === 'gender' ? (sortAscending ? '🔼' : '🔽') : '' }}
         </th>
         <th>Actions</th>
       </tr>

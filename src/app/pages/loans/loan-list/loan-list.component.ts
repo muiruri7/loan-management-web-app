@@ -35,13 +35,17 @@ export class LoanListComponent implements OnInit {
     this.filteredLoans = this.loans.filter(loan =>
       loan.borrower.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
       loan.amount.toString().includes(this.searchTerm) ||
+      loan.term.toString().includes(this.searchTerm) ||
+      loan.repaymentFrequency.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+      loan.startDate.includes(this.searchTerm) ||
+      loan.endDate.includes(this.searchTerm) ||
       loan.status.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
   }
 
   sortLoans(column: string): void {
     if (this.sortColumn === column) {
-      this.sortAscending = !this.sortAscending; // Toggle sorting order
+      this.sortAscending = !this.sortAscending;
     } else {
       this.sortColumn = column;
       this.sortAscending = true;
@@ -54,12 +58,11 @@ export class LoanListComponent implements OnInit {
     });
   }
 
-
   deleteLoan(id: string): void {
     if (confirm('Are you sure you want to delete this loan?')) {
       this.loanService.deleteLoan(id).subscribe({
         next: () => this.loadLoans(),
-        error: (err) => (this.errorMessage = 'Failed to delete loan')
+        error: () => (this.errorMessage = 'Failed to delete loan')
       });
     }
   }

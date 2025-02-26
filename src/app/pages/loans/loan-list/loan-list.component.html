@@ -23,6 +23,18 @@
         <th (click)="sortLoans('amount')">
           Amount {{ sortColumn === 'amount' ? (sortAscending ? '🔼' : '🔽') : '' }}
         </th>
+        <th (click)="sortLoans('term')">
+          Term {{ sortColumn === 'term' ? (sortAscending ? '🔼' : '🔽') : '' }}
+        </th>
+        <th (click)="sortLoans('repaymentFrequency')">
+          Repayment Frequency {{ sortColumn === 'repaymentFrequency' ? (sortAscending ? '🔼' : '🔽') : '' }}
+        </th>
+        <th (click)="sortLoans('startDate')">
+          Start Date {{ sortColumn === 'startDate' ? (sortAscending ? '🔼' : '🔽') : '' }}
+        </th>
+        <th (click)="sortLoans('endDate')">
+          End Date {{ sortColumn === 'endDate' ? (sortAscending ? '🔼' : '🔽') : '' }}
+        </th>
         <th (click)="sortLoans('status')">
           Status {{ sortColumn === 'status' ? (sortAscending ? '🔼' : '🔽') : '' }}
         </th>
@@ -33,6 +45,10 @@
       <tr *ngFor="let loan of filteredLoans">
         <td>{{ loan.borrower }}</td>
         <td>{{ loan.amount | currency }}</td>
+        <td>{{ loan.term }} days</td>
+        <td>{{ loan.repaymentFrequency }}</td>
+        <td>{{ loan.startDate | date }}</td>
+        <td>{{ loan.endDate | date }}</td>
         <td>{{ loan.status }}</td>
         <td>
           <button class="btn-edit" (click)="editLoan(loan.id)">✏️ Edit</button>
