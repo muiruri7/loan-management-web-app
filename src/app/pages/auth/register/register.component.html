@@ -2,6 +2,15 @@
   <div class="auth-box">
     <h2>Register</h2>
     <form (submit)="onRegister()">
+
+      <div class="input-group">
+        <label>First Name</label>
+        <input type="first_name" [(ngModel)]="first_name" name="first_name" required/>
+      </div>
+      <div class="input-group">
+        <label>Last Name</label>
+        <input type="last_name" [(ngModel)]="last_name" name="last_name" required/>
+      </div>
       <div class="input-group">
         <label>Email</label>
         <input type="email" [(ngModel)]="email" name="email" required />
