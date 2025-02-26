@@ -26,7 +26,7 @@ export class AuthService {
     return false;
   }
 
-  register(first_name:string, last_name:string, email: string, password: string): boolean {
+  register(_first_name:string, _last_name:string, email: string, password: string): boolean {
     if (!localStorage.getItem(email)) {
       localStorage.setItem(email, password);
       return true;
