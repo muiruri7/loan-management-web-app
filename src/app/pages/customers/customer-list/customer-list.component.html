@@ -31,9 +31,14 @@
     </thead>
     <tbody>
       <tr *ngFor="let customer of filteredCustomers">
-        <td>{{ customer.name }}</td>
+        <td>{{ customer.first_name }}</td>
+        <td>{{ customer.last_name }}</td>
         <td>{{ customer.email }}</td>
         <td>{{ customer.phone }}</td>
+        <td>{{ customer.address }}</td>
+        <td>{{ customer.dob }}</td>
+        <td>{{ customer.nationalId }}</td>
+        <td>{{ customer.gender }}</td>
         <td>
           <button class="btn-edit" (click)="editCustomer(customer.id)">✏️ Edit</button>
           <button class="btn-delete" (click)="deleteCustomer(customer.id)">🗑 Delete</button>

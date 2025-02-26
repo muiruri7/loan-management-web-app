@@ -1,12 +1,13 @@
 <div class="customer-form">
   <h2>{{ isEdit ? 'Edit Customer' : 'Add Customer' }}</h2>
 
-<div class="customer-form">
-  <h2>{{ isEdit ? 'Edit Customer' : 'Add Customer' }}</h2>
-
   <form (ngSubmit)="submitCustomer()" #customerForm="ngForm">
-    <label>Name</label>
-    <input type="text" [(ngModel)]="customer.name" name="name" required />
+    <label>First Name</label>
+    <input type="text" [(ngModel)]="customer.first_name" name="first_name" required />
+    <div *ngIf="customerForm.submitted && !customer.name" class="error">Name is required.</div>
+
+    <label>Last Name</label>
+    <input type="text" [(ngModel)]="customer.last_name" name="last_name" required />
     <div *ngIf="customerForm.submitted && !customer.name" class="error">Name is required.</div>
 
     <label>Email</label>
@@ -14,7 +15,7 @@
     <div *ngIf="customerForm.submitted && !customer.email" class="error">Valid email is required.</div>
 
     <label>Phone</label>
-    <input type="text" [(ngModel)]="customer.phone" name="phone" required pattern="^[0-9]{10}$" />
+    <input type="number" [(ngModel)]="customer.phone" name="phone" required pattern="^[0-9]{10}$" />
     <div *ngIf="customerForm.submitted && !customer.phone" class="error">Phone number must be 10 digits.</div>
 
     <label>Address</label>
