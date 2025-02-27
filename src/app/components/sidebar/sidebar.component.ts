@@ -14,12 +14,9 @@ export class SidebarComponent {
     { label: '🏠 Dashboard', link: '/dashboard' },
     { label: '👥 Customers', link: '/customers' },
     { label: '💰 Loans', link: '/loans' },
-    // { label: '📊 Charts', link: '/mycharts' }
   ];
-  
 
-  constructor(private authService: AuthService, private router: Router) {
-  }
+  constructor(private authService: AuthService, private router: Router) {}
 
   toggleSidebar(): void {
     this.isCollapsed = !this.isCollapsed;
