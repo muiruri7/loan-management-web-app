@@ -8,7 +8,7 @@ import { CustomerFormComponent } from './pages/customers/customer-form/customer-
 import { LoanListComponent } from './pages/loans/loan-list/loan-list.component';
 import { LoanFormComponent } from './pages/loans/loan-form/loan-form.component';
 import { MychartsComponent } from './components/my-charts/my-charts.component';
-import { AuthGuard } from './guards/auth.guard';
+//import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
