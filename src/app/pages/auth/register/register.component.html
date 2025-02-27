@@ -5,11 +5,11 @@
 
       <div class="input-group">
         <label>First Name</label>
-        <input type="_first_name" [(ngModel)]="first_name" name="_first_name" required/>
+        <input type="firstName" [(ngModel)]="first_name" name="firsName" required/>
       </div>
       <div class="input-group">
         <label>Last Name</label>
-        <input type="_last_name" [(ngModel)]="last_name" name="_last_name" required/>
+        <input type="lastName" [(ngModel)]="last_name" name="lastName" required/>
       </div>
       <div class="input-group">
         <label>Email</label>
@@ -20,6 +20,7 @@
         <label>Role</label>
         <select [(ngModel)]="role" name="role">
           <option value="User">User</option>
+          <option value="Customer">Customer</option>
           <option value="Admin">Admin</option>
         </select>
       </div> -->

@@ -3,8 +3,8 @@
     <h2>Login</h2>
     <form (submit)="onLogin()">
       <div class="input-group">
-        <label>Email</label>
-        <input type="email" [(ngModel)]="email" name="email" required />
+        <label>Email or First Name</label>
+        <input type="text" [(ngModel)]="identifier" name="identifier" required />
       </div>
 
       <div class="input-group">

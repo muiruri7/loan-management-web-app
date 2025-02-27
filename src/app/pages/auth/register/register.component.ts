@@ -23,11 +23,15 @@ export class RegisterComponent {
   }
 
   onRegister() {
-    if (this.authService.register(this.first_name, this.last_name, this.email, this.password)) {
-      alert('Registration successful! Please log in.');
-      this.router.navigate(['/login']);
-    } else {
-      this.errorMessage = 'Email already exists.';
-    }
+    this.authService.register(this.first_name, this.last_name, this.email, this.password)
+      .subscribe({
+        next: (response: any) => {
+          alert('Registration successful! Please log in.');
+          this.router.navigate(['/login']);
+        },
+        error: (error: { error: { message: string; }; }) => {
+          this.errorMessage = error.error?.message || 'Registration failed. Please try again.';
+        }
+      });
   }
 }

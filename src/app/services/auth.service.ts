@@ -1,50 +1,54 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private isAuthenticated = false;
+  private apiUrl = 'https://your-api-url.com/auth'; // Replace with actual API
+  private isAuthenticatedSubject = new BehaviorSubject<boolean>(this.hasToken());
 
-  constructor() {
-    const user = localStorage.getItem('user') || sessionStorage.getItem('user');
-    if (user) {
-      this.isAuthenticated = true;
-    }
+  constructor(private http: HttpClient) {}
+
+  private hasToken(): boolean {
+    return !!localStorage.getItem('token') || !!sessionStorage.getItem('token');
   }
 
-  login(email: string, password: string, rememberMe: boolean): boolean {
-    if (email && password) {
-      if (rememberMe) {
-        localStorage.setItem('user', email);
-      } else {
-        sessionStorage.setItem('user', email);
-      }
-      this.isAuthenticated = true;
-      return true;
-    }
-    return false;
+  login(identifier: string, password: string, rememberMe: boolean): Observable<any> {
+    const isEmail = identifier.includes('@');
+    const loginData = isEmail ? { email: identifier, password } : { firstName: identifier, password };
+  
+    return this.http.post<any>(`${this.apiUrl}/login`, loginData).pipe(
+      tap(response => {
+        if (response.token && response.user) {
+          const storage = rememberMe ? localStorage : sessionStorage;
+          storage.setItem('token', response.token);
+          storage.setItem('user', response.user.firstName); // Store user's first name
+          this.isAuthenticatedSubject.next(true);
+        }
+      })
+    );
   }
 
-  register(_first_name:string, _last_name:string, email: string, password: string): boolean {
-    if (!localStorage.getItem(email)) {
-      localStorage.setItem(email, password);
-      return true;
-    }
-    return false;
+
+  register(first_name: string, last_name: string, email: string, password: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/register`, { first_name, last_name, email, password });
   }
 
   logout(): void {
-    localStorage.removeItem('user');
-    sessionStorage.removeItem('user');
-    this.isAuthenticated = false;
+    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
+    this.isAuthenticatedSubject.next(false);
   }
 
   isUserAuthenticated(): boolean {
-    return localStorage.getItem('user') !== null || sessionStorage.getItem('user') !== null;
+    return this.isAuthenticatedSubject.value;
   }
 
   getUser(): string {
     return localStorage.getItem('user') || sessionStorage.getItem('user') || '';
   }
+
 }

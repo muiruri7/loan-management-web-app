@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  email = '';
+  identifier = ''; // Can be either first name or email
   password = '';
   rememberMe = false;
   errorMessage = '';
@@ -17,15 +17,19 @@ export class LoginComponent {
 
   ngOnInit() {
     if (this.authService.isUserAuthenticated()) {
-      this.router.navigate(['/dashboard']); // Redirect if already logged in
+      this.router.navigate(['/dashboard']);
     }
   }
 
   onLogin() {
-    if (this.authService.login(this.email, this.password, this.rememberMe)) {
-      this.router.navigate(['/dashboard']);
-    } else {
-      this.errorMessage = 'Invalid credentials';
-    }
+    this.authService.login(this.identifier, this.password, this.rememberMe).subscribe({
+      next: () => {
+        this.router.navigate(['/dashboard']);
+      },
+      error: (error) => {
+        this.errorMessage = error.error?.message || 'Invalid credentials. Please try again.';
+      }
+    });
   }
 }
+
