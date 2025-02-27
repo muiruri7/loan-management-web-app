@@ -25,13 +25,19 @@ export class RegisterComponent {
   onRegister() {
     this.authService.register(this.first_name, this.last_name, this.email, this.password)
       .subscribe({
-        next: (response: any) => {
+        next: (response) => {
           alert('Registration successful! Please log in.');
           this.router.navigate(['/login']);
         },
-        error: (error: { error: { message: string; }; }) => {
-          this.errorMessage = error.error?.message || 'Registration failed. Please try again.';
+        error: (error) => {
+          console.error('Registration Failed:', error);
+          if (error.status === 0) {
+            this.errorMessage = 'Cannot connect to the server. Retrying...';
+          } else {
+            this.errorMessage = error.error?.message || 'An error occurred. Please try again.';
+          }
         }
       });
   }
+  
 }

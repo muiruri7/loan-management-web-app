@@ -7,32 +7,35 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class CustomerService {
-  private apiUrl = 'http://localhost:8080/api/customers';
+  private baseUrl = 'http://197.155.71.138:8083/api/v1/customers';
 
   constructor(private http: HttpClient) {}
 
   getCustomers(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl).pipe(catchError(this.handleError));
+    return this.http.get<any[]>(`${this.baseUrl}/getAllCustomers`).pipe(catchError(this.handleError));
   }
 
   getCustomer(id: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/${id}`).pipe(catchError(this.handleError));
+    return this.http.get<any>(`${this.baseUrl}/getCustomer/${id}`).pipe(catchError(this.handleError));
   }
 
   addCustomer(customer: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, customer).pipe(catchError(this.handleError));
+    return this.http.post<any>(`${this.baseUrl}/createCustomer`, customer).pipe(
+      catchError(this.handleError)
+    );
   }
 
   updateCustomer(id: string, customer: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/${id}`, customer).pipe(catchError(this.handleError));
+    return this.http.put<any>(`${this.baseUrl}/updateCustomer/${id}`, customer).pipe(catchError(this.handleError));
   }
 
   deleteCustomer(id: string): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/${id}`).pipe(catchError(this.handleError));
+    return this.http.delete<any>(`${this.baseUrl}/deleteCustomer/${id}`).pipe(catchError(this.handleError));
   }
 
   private handleError(error: HttpErrorResponse) {
-    console.error('Error occurred:', error);
-    return throwError(() => new Error('Something went wrong! Please try again.'));
+    console.error('Customer Service Error:', error);
+    return throwError(() => new Error(error.error?.message || `HTTP ${error.status}: ${error.statusText}` || 'Something went wrong! Please try again.'));
   }
+  
 }

@@ -29,16 +29,16 @@ export class CustomerFormComponent implements OnInit {
   }
 
   submitCustomer(): void {
-    if (!this.customer.first_name ||!this.customer.last_name || !this.customer.email || !this.customer.phone) return;
-
-    if (this.isEdit) {
-      this.customerService.updateCustomer(this.customer.id, this.customer).subscribe(() => {
+    this.customerService.addCustomer(this.customer).subscribe({
+      next: () => {
+        alert('Customer added successfully!');
         this.router.navigate(['/customers']);
-      });
-    } else {
-      this.customerService.addCustomer(this.customer).subscribe(() => {
-        this.router.navigate(['/customers']);
-      });
-    }
+      },
+      error: (error) => {
+        console.error('Customer Submission Error:', error);
+        this.errorMessage = error.message;
+      }
+    });
   }
+  
 }
