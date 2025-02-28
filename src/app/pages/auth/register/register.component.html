@@ -30,8 +30,10 @@
         <input type="password" [(ngModel)]="password" name="password" required />
       </div>
 
-      <button type="submit" class="btn-primary">Register</button>
-
+      <button type="submit" class="btn-primary" [disabled]="isLoading">
+        {{ isLoading ? 'Registering...' : 'Register' }}
+      </button>
+      
       <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
 
       <p>Already have an account? <a routerLink="/login">Login</a></p>

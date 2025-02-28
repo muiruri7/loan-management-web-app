@@ -14,7 +14,7 @@
     <input type="email" [(ngModel)]="customer.email" name="email" required email />
     <div *ngIf="customerForm.submitted && !customer.email" class="error">Valid email is required.</div>
 
-    <label>Phone</label>
+    <label>Phone Number</label>
     <input type="number" [(ngModel)]="customer.phone" name="phone" required pattern="^[0-9]{10}$" />
     <div *ngIf="customerForm.submitted && !customer.phone" class="error">Phone number must be 10 digits.</div>
 

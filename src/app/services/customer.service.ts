@@ -7,7 +7,7 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class CustomerService {
-  private baseUrl = 'http://197.155.71.138:8083/api/v1/customers';
+  private baseUrl = 'http://172.16.8.26:8083/api/v1/customers';
 
   constructor(private http: HttpClient) {}
 

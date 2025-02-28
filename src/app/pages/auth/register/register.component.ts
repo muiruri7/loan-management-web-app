@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
+import { catchError, finalize, retry } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -13,6 +15,7 @@ export class RegisterComponent {
   email = '';
   password = '';
   errorMessage = '';
+  isLoading = false;  // ✅ Added loading state
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -23,21 +26,28 @@ export class RegisterComponent {
   }
 
   onRegister() {
+    this.isLoading = true;  // ✅ Show loading state
+    this.errorMessage = '';
+
     this.authService.register(this.first_name, this.last_name, this.email, this.password)
-      .subscribe({
-        next: (response) => {
-          alert('Registration successful! Please log in.');
-          this.router.navigate(['/login']);
-        },
-        error: (error) => {
+      .pipe(
+        retry(2), // ✅ Automatically retry up to 2 times before failing
+        catchError((error) => {
           console.error('Registration Failed:', error);
           if (error.status === 0) {
-            this.errorMessage = 'Cannot connect to the server. Retrying...';
+            this.errorMessage = 'Cannot connect to the server. Please check your network.';
           } else {
             this.errorMessage = error.error?.message || 'An error occurred. Please try again.';
           }
+          return of(null);
+        }),
+        finalize(() => this.isLoading = false) // ✅ Hide loading state after request finishes
+      )
+      .subscribe((response) => {
+        if (response) {
+          alert('Registration successful! Please log in.');
+          this.router.navigate(['/login']);
         }
       });
   }
-  
 }

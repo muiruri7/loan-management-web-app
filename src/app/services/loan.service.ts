@@ -7,8 +7,8 @@ import { catchError, tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class LoanService {
-  private baseUrl = 'http://197.155.71.138:8083/api/v1/loans';
-  private customerBaseUrl = 'http://197.155.71.138:8083/api/v1/customer';
+  private baseUrl = 'http://172.16.8.26/api/v1/loans';
+  private customerBaseUrl = 'http://172.16.8.26:8083/api/v1/customer';
 
   // Cache for loans
   private loansCache = new ReplaySubject<any[]>(1);

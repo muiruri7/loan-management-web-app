@@ -7,8 +7,8 @@ import { catchError, retry, tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  private registerUrl = 'http://197.155.71.138:8083/api/v1/auth/register';
-  private loginUrl = 'http://197.155.71.138:8083/api/v1/auth/login';
+  private registerUrl = 'http://172.16.8.26:8083/api/v1/auth/register';
+  private loginUrl = 'http://172.16.8.26:8083/api/v1/auth/login';
 
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(this.hasToken());
 
