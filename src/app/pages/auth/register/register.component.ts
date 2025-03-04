@@ -21,7 +21,7 @@ export class RegisterComponent {
 
   ngOnInit() {
     if (this.authService.isUserAuthenticated()) {
-      this.router.navigate(['/dashboard']); // Redirect if already logged in
+      this.router.navigate(['/dashboard']);
     }
   }
 
